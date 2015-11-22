@@ -1,0 +1,138 @@
+body {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 10pt;
+    width: 1000px;
+    margin: auto;
+}
+
+header .subtitle {
+    font-size: 0.8em;
+    font-weight: bold;
+    display: block;
+    margin-top: -20px;
+}
+
+#ClientInfo {
+    float: right;
+}
+
+h1 {
+    text-align: center;
+    color: #16365c;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid silver;
+}
+
+.tblInfo {
+    border-collapse: collapse;
+}
+
+.tblInfo td {
+    padding: 5px 10px;
+}
+
+.tblInfo tr:nth-child(odd) {
+    background-color: rgb(245,245,245);
+}
+
+.tblDetails {
+    border-collapse: collapse;
+    margin-top: 15px;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.tblDetails caption {
+    text-align: left;
+    background-color: #f8f3cf;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.tblDetails thead tr {
+    background-color: #058fc8;
+    font-weight: bold;
+    border-top: 1px solid white;
+    color: white;
+    text-align: center;
+}
+
+.tblDetails th, .tblDetails td {
+    padding: 5px 10px;
+}
+
+.tblDetails tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.tblDetails tfoot tr {
+    background-color: #f8f3cf;
+    font-weight: bold;
+    border-top: 1px solid #d3ca8b;
+}
+
+.tblDetails.infoBk {
+    width: 600px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 0;
+}
+
+.tblDetails.infoBk caption {
+    background-color: #e8e8e8;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.tblDetails.total  {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 15px;
+    border-radius: 0;
+}
+
+.tblDetails.total tr {
+    background-color: #f8f3cf !important;
+    border-top: 1px solid #d3ca8b;
+}
+
+.tblDetails.total tr:last-child {
+    background-color: #eee9c8  !important;
+    color: #5C5314;
+    text-shadow: 1px 1px 2px white;
+}
+
+
+.info {
+    background-color: #F7FCFF;
+    padding: 10px;
+    margin: 30px 0;
+}
+
+.fltR {
+    float: right;
+}
+
+.txtRight{
+    text-align: right;
+}
+
+.txtCenter{
+    text-align: center;
+}
+
+.small {
+    font-size: 0.8em;
+}
+
+.big {
+    font-size: 1.2em;
+}

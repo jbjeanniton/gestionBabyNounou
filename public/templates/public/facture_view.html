@@ -1,0 +1,124 @@
+{% load staticfiles %}
+{% if user.is_authenticated %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Facture du {{ mois }} | {{ facture.client.prenom }} {{ facture.client.nom | upper }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static "public/css/standard.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "public/css/print.css" %}" media="print">
+</head>
+    <body>
+
+        <header>
+            <img width="300" height="100" src="{% static "public/img/logo.png" %}"><br>
+            <span class="subtitle"><strong>Parce que la sécurité de vos enfants est notre priorité</strong></span>
+            <address>
+                <p>
+                    7, rue Themis - Vivy Mitchel - Route de Frères<br>
+                    Pétion-Ville, Haïti
+                </p>
+            </address>
+        </header>
+
+        <div id="ClientInfo">
+            <strong class="big">{{ facture.client.prenom }} {{ facture.client.nom | upper }}</strong>
+            <address>
+                <p>
+                    {{ facture.client.adresse }}<br>
+                    {{ facture.client.zone }}, Haiti
+                </p>
+            </address>
+        </div>
+
+        <hr style="clear: both;">
+
+        <h1>Facture</h1>
+
+
+        <table class="tblInfo fltR">
+            <tbody>
+                <tr><td width="200"><strong>Date d'émission</strong></td><td class="txtRight">{{ facture.date }}</td></tr>
+                <tr><td><strong>No Facture</strong></td><td class="txtRight">{{ facture.code }}</td></tr>
+            </tbody>
+        </table>
+
+        <table class="tblInfo ">
+            <tbody>
+                <tr><td width="200"><strong>Mois</strong></td><td class="txtRight">{{ mois}}</td></tr>
+                <tr><td><strong>Unité monaitaire</strong></td><td class="txtRight">USD</td></tr>
+            </tbody>
+        </table>
+        <br><br>
+        <div id="FactureDiv">
+
+            {% for details in details %}
+
+            <table class="tblDetails">
+                {% if sub_total_show %}
+                <caption>Plan # {{ forloop.counter }}</caption>
+                {% endif %}
+            <thead>
+            <tr>
+                <td width="50">Qt.</td>
+                <td>Item</td>
+                <td width="100">Prix unit.</td>
+                <td width="100">Prix Total</td>
+            </tr>
+            </thead>
+
+                <tbody>
+                    <tr><td class="txtRight">{{ details.jour_travail }} / {{ details.nbr_jour_mensuel }}</td>
+                        <td>Plan <strong>{{ details.typeprestation.nom }}</strong> {% if details.personalise %}personnalisé{% endif %}  pour <strong>{{ details.nbr_enfant }} </strong> enfant(s)  {% if details.nounou  %} <em>(Nounou : {{ details.nounou }})</em> {% endif %}</td>
+                        <td class="txtRight">{{ details.montant_prestation }}</td><td class="txtRight">{{ details.montant_calcule }}</td></tr>
+                    <tr><td class="txtRight">{{ details.heure_supplementaire }}</td><td>Heure(s) supplémentaire(s)</td><td class="txtRight">2</td><td class="txtRight">{{ details.montant_heure_supp }}</td></tr>
+                    {% for option in details.detailsfactureoption_set.all %}
+                    <tr><td class="txtRight">1</td><td>{{ option.option.nom }} <em class="small">(option)</em></td><td class="txtRight">{{ option.cout_option }}</td><td class="txtRight">{{ option.cout_option }}</td></tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr><td colspan="3" class="txtRight">Sous-Total</td><td class="txtRight">{{ details.montant_total }}</td></tr>
+                </tfoot>
+
+            </table>
+
+            {% endfor %}
+            <table class="tblDetails total">
+                <tbody>
+                {% if sub_total_show %}
+                    <tr><td class="txtRight">Sous-Total Global</td><td width="100" class="txtRight">{{ facture.sous_montant_total }}</td></tr>
+                {% endif %}
+                    <tr><td class="txtRight">Balance antérieure / Bonus / Rabais</td><td width="100" class="txtRight">{{ facture.balance }}</td></tr>
+                    <tr><td class="txtRight big">TOTAL</td><td class="txtRight">{{ montant_total }}</td></tr>
+                </tbody>
+            </table>
+
+            <p class="info">
+                * Date limite de Paiement : vendredi 10 avril 2015
+            </p>
+        </div>
+
+        <table class="tblDetails infoBk">
+            <caption>Informations Bancaires</caption>
+            <tbody>
+                <tr><td width="200"><strong>Banque</strong></td> <td>UNIBANK</td></tr>
+                <tr><td><strong>Titulaires des comptes</strong></td> <td><span class="highlight">Lugnie LAMOTHE</span> ou <span class="highlight">Jeas Benjamin JEANNITON</span></td></tr>
+                <tr><td><strong>No Compte HTG</strong></td> <td>102-2015-12583714</td></tr>
+                <tr><td><strong>No Compte US</strong></td> <td>102-2016-15536653</td></tr>
+            </tbody>
+        </table>
+
+        <p class="txtCenter">* Prière d'émettre les chèques à l'ordre de <strong>Lugnie LAMOTHE</strong></p>
+        <hr>
+        <p class="small txtCenter">
+            <strong>Agence Baby Nounou</strong><br>
+            (509) 46 54 87 45 / 48 90 65 45<br>
+            contact@babynounou-ht.com<br>
+            www.babynounou-ht.com
+        </p>
+
+    </body>
+</html>
+{% else %}
+<p>Vous n'avez pas accès à cette section</p>
+{% endif %}
